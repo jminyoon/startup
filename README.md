@@ -1,7 +1,3 @@
-# startup
-Change from my devleopment environment!
-github change
+#startup
 
-change from vs code
-
-I learned how to commit changes to GitHub and how to deal with merge issues
+Imagine you're sitting in your room or in your office, bored with nothing to do. You want to do something that would entertain you but at the same time you don't want to feel like you're doing nothing. Then why not try something not only entertaining but mentally challenging? Something that has been known for years to not only increase intellect but also fun? Why not try a little bit of chess? With EzChess, chess would not be limited to being purly just a physical board game but a virtual, portable game as well. And don't worry, you don't need to find someone to play it with. You can play with complete random strangers over the internet. So no need to stress over trying to find someone who also enjoys playing a good old fashion game of chess. So why not give EzChess a try?
