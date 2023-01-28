@@ -7,4 +7,4 @@ Being able to play chess
 Matchmaking system with other players
 Skill level system so you are able to play with those of similar skill level
 
-(C:\Users\nqrut\OneDrive\Pictures\Screenshot 2023-01-27 192949.png)
+![plot](C:\Users\nqrut\OneDrive\Pictures\Screenshot 2023-01-27 192949.png)
