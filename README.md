@@ -7,4 +7,7 @@ Being able to play chess
 Matchmaking system with other players
 Skill level system so you are able to play with those of similar skill level
 
+Simon HTML Project
+I need to make sure the angle numbers were the same because the first time I pulled up the website, the shapes were all pointing the wrong direction. Other than that it was pretty easy.
+
 ![plot](C:\Users\nqrut\OneDrive\Pictures\Screenshot 2023-01-27 192949.png)
