@@ -10,7 +10,7 @@ Skill level system so you are able to play with those of similar skill level
 Simon HTML Project
 I need to make sure the angle numbers were the same because the first time I pulled up the website, the shapes were all pointing the wrong direction. Other than that it was pretty easy.
 
-CSS Flexbox /n
+CSS Flexbox \n
 Make sure the flex values add up to the total flex values that you predetermine 
 
 ![Screenshot 2023-01-27 192949](https://user-images.githubusercontent.com/112604068/215238737-d28caf47-ad64-45ac-aa27-4d36a183e6d2.png)
