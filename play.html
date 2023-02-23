@@ -15,4 +15,47 @@
             crossorigin="anonymous"
         />
     </head>
+    <body class="text-light">
+        <header class="container-fluid">
+            <nav class="navbar fixed-top navbar-dark">
+                <a class="navbar-brand" href="#">EZ Chess<sup>&reg;</sup></a>
+                <menu>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="play.html">Play</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="matchhistory.html">Match History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About</a>
+                    </li>
+                </menu>
+            </nav>
+        </header>
+
+        <main class="container-fluid text-center">
+            <div>
+                <h1>Welcome</h1>
+                <p>Login to play</p>
+                <form method="get" action="play.html">
+                    <intput type="text" id="name" placeholder="Your name here" />
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </main>
+
+        <footer class="text-light">
+            <div class="container-fluid">
+                <span class="text-reset">Author Name</span>
+                <a 
+                    class="text-reset"
+                    href="https://github.com/jminyoon/startup"
+                    >Jeffry</a
+                >
+            </div>
+        </footer>
+    </body>
 </html>
