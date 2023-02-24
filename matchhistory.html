@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>About</title>
+        <title>Match History</title>
         <link rel="icon" href="horse.ico" />
 
         <link rel="stylesheet" href="main.css" />
@@ -15,4 +15,69 @@
             crossorigin="anonymous"
         />
     </head>
+    <body class="text-light">
+        <header class="container-fluid">
+            <nav class="navbar fixed-top navbar-dark">
+                <a class="navbar-brand" href="#">EZ Chess<sup>&reg;</sup></a>
+                <menu>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="play.html">Play</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="matchhistory.html">Match History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About</a>
+                    </li>
+                </menu>
+            </nav>
+        </header>
+
+        <main class="container-fluid text-center">
+            <table class="table table-warning table-striped-columns table-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>whats good</td>
+                        <td>1000</td>
+                        <td>Feb 8, 2023</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>person above me has no life</td>
+                        <td>22</td>
+                        <td>Feb 8, 2023</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>i suck at this game</td>
+                        <td>1</td>
+                        <td>Feb 8, 2023</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer class="text-light">
+            <div class="container-fluid">
+                <span class="text-reset">Author Name</span>
+                <a 
+                    class="text-reset"
+                    href="https://github.com/jminyoon/startup"
+                    >Jeffry</a
+                >
+            </div>
+        </footer>
+    </body>
 </html>
