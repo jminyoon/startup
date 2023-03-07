@@ -56,14 +56,14 @@ footer a {
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 100%;
     flex: 10;
 }
 .board {
-    width: 660px;
-    height: 660px;
+    aspect-ratio: 1/1;
     margin: 20px;
     border: 10px solid #333;
-    flex: 6;
+    flex: 3;
 }
 .players {
     flex: 4;
@@ -71,9 +71,11 @@ footer a {
     padding: 0.5em;
 }
 .black {
+    display: flex;
+    flex: 1;
     float: left;
-    width: 80px;
-    height: 80px;
+    width: 12.5%;
+    height: 12.5%;
     background-color: rgb(184,139,74);
     font-size:50px;
     text-align:center;
@@ -81,9 +83,11 @@ footer a {
     vertical-align:middle;
 }
 .white {
+    display: flex;
+    flex: 1;
     float: left;
-    width: 80px;
-    height: 80px;
+    width: 12.5%;;
+    height: 12.5%;;
     background-color: rgb(227,193,111);
     font-size:50px;
     text-align:center;
