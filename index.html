@@ -6,6 +6,7 @@
         <title>Home</title>
         <link rel="icon" href="horse.ico" />
 
+        <script src="login.js"></script>
         <link rel="stylesheet" href="main.css" />
 
         <link 
@@ -40,10 +41,10 @@
             <div>
                 <h1>Welcome</h1>
                 <p>Login to play</p>
-                <form method="get" action="play.html">
-                    <intput type="text" id="name" placeholder="Your name here" />
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
+                <div>
+                    <input type="text" id="name" placeholder="Your name here" />
+                    <button class="btn btn-primary" onclick="login()">Login</button>
+                </div>
                 <p>or</p>
                 <form method="get" action="play.html">
                     <intput type="text" id="name" placeholder="Your name here" />
