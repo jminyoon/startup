@@ -99,6 +99,10 @@ footer a {
     width: 100%;
     padding: 0.5em;
 }
+.player-one {
+    width: 50%;
+    background-color: blue;
+}
 .center {
     top: 50%;
     left: 50%;
