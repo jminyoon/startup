@@ -65,9 +65,6 @@ footer a {
     border: 10px solid #333;
     flex: 3;
 }
-.white-queen {
-    width: 100px;
-}
 .black {
     display: flex;
     flex: 1;
@@ -91,6 +88,11 @@ footer a {
     text-align:center;
     display: table-cell;
     vertical-align:middle;
+}
+.pieces {
+    display: flex;
+    flex:1;
+    width: 100%;
 }
 .players {
     flex: 4;
