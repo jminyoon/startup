@@ -65,10 +65,8 @@ footer a {
     border: 10px solid #333;
     flex: 3;
 }
-.players {
-    flex: 4;
-    width: 100%;
-    padding: 0.5em;
+.white-queen {
+    width: 100px;
 }
 .black {
     display: flex;
@@ -94,7 +92,11 @@ footer a {
     display: table-cell;
     vertical-align:middle;
 }
-
+.players {
+    flex: 4;
+    width: 100%;
+    padding: 0.5em;
+}
 .center {
     top: 50%;
     left: 50%;
