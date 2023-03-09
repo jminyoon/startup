@@ -31,27 +31,37 @@ class Game {
             const tileEl = document.querySelector('#' + string);
             if (i === 0 || i === 7) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/wr.svg class=pieces id=white-rook/>';
+                piece.src = 'california/wr.svg';
+                piece.className = 'pieces';
+                piece.id = 'white-rook';
                 tileEl.appendChild(piece);
             }
             if (i === 1 || i === 6) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/wn.svg class=pieces id=white-knight/>';
+                piece.src = 'california/wn.svg';
+                piece.className = 'pieces';
+                piece.id = 'white-knight';
                 tileEl.appendChild(piece);
             }
             if (i === 2 || i === 5) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/wb.svg class=pieces id=white-bishop/>';
+                piece.src = 'california/wb.svg';
+                piece.className = 'pieces';
+                piece.id = 'white-bishop';
                 tileEl.appendChild(piece);
             }
             if (i === 3) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/wq.svg class=pieces id=white-queen/>';
+                piece.src = 'california/wq.svg';
+                piece.className = 'pieces';
+                piece.id = 'white-queen';
                 tileEl.appendChild(piece);
             }
             if (i === 4) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/wk.svg class=pieces id=white-king/>';
+                piece.src = 'california/wk.svg';
+                piece.className = 'pieces';
+                piece.id = 'white-king';
                 tileEl.appendChild(piece);
             }
         }
@@ -60,7 +70,9 @@ class Game {
             const string = this.verticalColumns[i] + row;
             const tileEl = document.querySelector('#' + string);
             const piece = document.createElement('img');
-            piece.innerHTML = '<img src=california/wp.svg class=pieces id=white-pawn/>';
+            piece.src = 'california/wp.svg';
+            piece.className = 'pieces';
+            piece.id = 'white-pawn';
             tileEl.appendChild(piece);
         }
         row = this.horizontalRows[6];
@@ -68,35 +80,48 @@ class Game {
             const string = this.verticalColumns[i] + row;
             const tileEl = document.querySelector('#' + string);
             const piece = document.createElement('img');
-            piece.innerHTML = '<img src=california/bp.svg class=pieces id=black-pawn/>';
+            piece.src = 'california/bp.svg';
+            piece.className = 'pieces';
+            piece.id = 'black-pawn';
             tileEl.appendChild(piece);
         }
+        row = this.horizontalRows[7];
         for (let i = 0; i < this.verticalColumns.length; i++) {
             const string = this.verticalColumns[i] + row;
             const tileEl = document.querySelector('#' + string);
             if (i === 0 || i === 7) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/br.svg class=pieces id=black-rook/>';
+                piece.src = 'california/br.svg';
+                piece.className = 'pieces';
+                piece.id = 'black-rook';
                 tileEl.appendChild(piece);
             }
             if (i === 1 || i === 6) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/bn.svg class=pieces id=black-knight/>';
+                piece.src = 'california/bn.svg';
+                piece.className = 'pieces';
+                piece.id = 'black-knight';
                 tileEl.appendChild(piece);
             }
             if (i === 2 || i === 5) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/bb.svg class=pieces id=black-bishop/>';
+                piece.src = 'california/bb.svg';
+                piece.className = 'pieces';
+                piece.id = 'black-bishop';
                 tileEl.appendChild(piece);
             }
             if (i === 3) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/bq.svg class=pieces id=black-queen/>';
+                piece.src = 'california/bq.svg';
+                piece.className = 'pieces';
+                piece.id = 'black-queen';
                 tileEl.appendChild(piece);
             }
             if (i === 4) {
                 const piece = document.createElement('img');
-                piece.innerHTML = '<img src=california/bk.svg class=pieces id=black-king/>';
+                piece.src = 'california/bk.svg';
+                piece.className = 'pieces';
+                piece.id = 'black-king';
                 tileEl.appendChild(piece);
             }
         }
