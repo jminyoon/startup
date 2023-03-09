@@ -132,7 +132,7 @@ class Game {
         this.setPieces();
     }
 
-    movePiece() {
+    movePiece(column, row) {
         //
     }
 
@@ -140,6 +140,7 @@ class Game {
         return localStorage.getItem('username') ?? 'Mystery player';
     }
 
+    //Will do this later(for match history) Need multiple players
     saveScore(score) {
         const userName = this.getPlayerName();
         let scores = [];

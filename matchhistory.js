@@ -26,7 +26,7 @@ function loadHistory() {
         }
     }
     else {
-        tableBodyEl.innerHTML = '<tr><td colSpan=3>Play a game</td></tr>'
+        tableBodyEl.innerHTML = '<tr><td colSpan=3>Play a game. Will be worked on later because we need multiple players</td></tr>'
     }
 }
 
