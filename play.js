@@ -132,6 +132,10 @@ class Game {
         this.setPieces();
     }
 
+    movePiece() {
+        //
+    }
+
     getPlayerName() {
         return localStorage.getItem('username') ?? 'Mystery player';
     }
