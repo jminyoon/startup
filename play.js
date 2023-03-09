@@ -3,14 +3,12 @@ class Game {
     allowPlayer;
     sequence;
     playerPlaybackPos;
-    mistakeSound;
 
     constructor() {
         this.buttons = new Map();
         this.allowPlayer = false;
         this.sequence = [];
         this.playerPlaybackPos = 0;
-        this.mistakeSound = loadSound('error.mp3');
 
         document.querySelectorAll('.game-button').forEach((el, i) => {
             if (i < btnDescriptions.length) {
@@ -18,7 +16,7 @@ class Game {
             }
         });
 
-        const playerNameEl = document.querySelector('.player-name');
+        const playerNameEl = document.querySelector('.player-one');
         playerNameEl.textContent = this.getPlayerName();
     }
 
