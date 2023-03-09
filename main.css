@@ -65,6 +65,13 @@ footer a {
     border: 10px solid #333;
     flex: 3;
 }
+.board-text{
+    display: flex;
+    position: relative;
+    top: 50%;
+    left: 43%;
+    font-size: xx-large;
+}
 .black {
     display: flex;
     flex: 1;
