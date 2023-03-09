@@ -96,7 +96,12 @@ footer a {
     display: table-cell;
     vertical-align:middle;
 }
-.pieces {
+.white-piece {
+    display: flex;
+    flex:1;
+    width: 100%;
+}
+.black-piece {
     display: flex;
     flex:1;
     width: 100%;

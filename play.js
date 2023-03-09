@@ -32,35 +32,35 @@ class Game {
             if (i === 0 || i === 7) {
                 const piece = document.createElement('img');
                 piece.src = 'california/wr.svg';
-                piece.className = 'pieces';
+                piece.className = 'white-piece';
                 piece.id = 'white-rook';
                 tileEl.appendChild(piece);
             }
             if (i === 1 || i === 6) {
                 const piece = document.createElement('img');
                 piece.src = 'california/wn.svg';
-                piece.className = 'pieces';
+                piece.className = 'white-piece';
                 piece.id = 'white-knight';
                 tileEl.appendChild(piece);
             }
             if (i === 2 || i === 5) {
                 const piece = document.createElement('img');
                 piece.src = 'california/wb.svg';
-                piece.className = 'pieces';
+                piece.className = 'white-piece';
                 piece.id = 'white-bishop';
                 tileEl.appendChild(piece);
             }
             if (i === 3) {
                 const piece = document.createElement('img');
                 piece.src = 'california/wq.svg';
-                piece.className = 'pieces';
+                piece.className = 'white-piece';
                 piece.id = 'white-queen';
                 tileEl.appendChild(piece);
             }
             if (i === 4) {
                 const piece = document.createElement('img');
                 piece.src = 'california/wk.svg';
-                piece.className = 'pieces';
+                piece.className = 'white-piece';
                 piece.id = 'white-king';
                 tileEl.appendChild(piece);
             }
@@ -71,7 +71,7 @@ class Game {
             const tileEl = document.querySelector('#' + string);
             const piece = document.createElement('img');
             piece.src = 'california/wp.svg';
-            piece.className = 'pieces';
+            piece.className = 'white-piece';
             piece.id = 'white-pawn';
             tileEl.appendChild(piece);
         }
@@ -81,7 +81,7 @@ class Game {
             const tileEl = document.querySelector('#' + string);
             const piece = document.createElement('img');
             piece.src = 'california/bp.svg';
-            piece.className = 'pieces';
+            piece.className = 'black-piece';
             piece.id = 'black-pawn';
             tileEl.appendChild(piece);
         }
@@ -92,35 +92,35 @@ class Game {
             if (i === 0 || i === 7) {
                 const piece = document.createElement('img');
                 piece.src = 'california/br.svg';
-                piece.className = 'pieces';
+                piece.className = 'black-piece';
                 piece.id = 'black-rook';
                 tileEl.appendChild(piece);
             }
             if (i === 1 || i === 6) {
                 const piece = document.createElement('img');
                 piece.src = 'california/bn.svg';
-                piece.className = 'pieces';
+                piece.className = 'black-piece';
                 piece.id = 'black-knight';
                 tileEl.appendChild(piece);
             }
             if (i === 2 || i === 5) {
                 const piece = document.createElement('img');
                 piece.src = 'california/bb.svg';
-                piece.className = 'pieces';
+                piece.className = 'black-piece';
                 piece.id = 'black-bishop';
                 tileEl.appendChild(piece);
             }
             if (i === 3) {
                 const piece = document.createElement('img');
                 piece.src = 'california/bq.svg';
-                piece.className = 'pieces';
+                piece.className = 'black-piece';
                 piece.id = 'black-queen';
                 tileEl.appendChild(piece);
             }
             if (i === 4) {
                 const piece = document.createElement('img');
                 piece.src = 'california/bk.svg';
-                piece.className = 'pieces';
+                piece.className = 'black-piece';
                 piece.id = 'black-king';
                 tileEl.appendChild(piece);
             }
@@ -133,7 +133,21 @@ class Game {
     }
 
     movePiece(column, row) {
-        //
+        /**const rootTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row]);
+        if (!rootTileEl.hasChildNodes()) {
+            return;
+        }
+        I'll do fine tuning later
+        rootTileEl.style.background = 'lightblue';
+        if (rootTileEl.querySelector('#white-pawn') != null) {
+            if (row === 6) {
+                let movingTileEl = document.getElementById(this.verticalColumns[column] + this[row + 1]);
+                if (!movingTileEl.hasChildNodes()) {
+                    
+                }
+            }
+        }**/
+        
     }
 
     getPlayerName() {
