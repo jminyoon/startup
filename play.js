@@ -17,7 +17,9 @@ class Game {
         for (let i = 0; i < this.verticalColumns.length; i++) {
             for (let j = 0; j < this.horizontalRows.length; j++) {
                 const tileEl = document.querySelector('#' + this.verticalColumns[i] + this.horizontalRows[j]);
-                tileEl.removeChild(tileEl.firstChild);
+                if (tileEl.hasChildNodes()) {
+                    tileEl.removeChild(tileEl.firstChild);
+                }
             }
         }
     }
