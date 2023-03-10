@@ -157,16 +157,6 @@ class Game {
             blueBackground.style.position = 'relative';
             blueBackground.className = 'blueBackground';
 
-            const redBackground = document.createElement('div');
-            redBackground.style.background = 'lightcoral';
-            redBackground.style.width = '100%';
-            redBackground.style.height = '100%';
-            redBackground.style.top = '-100%';
-            redBackground.style.border = '5px solid black';
-            redBackground.style.zIndex = '2';
-            redBackground.style.position = 'relative';
-            redBackground.className = 'redBackground';
-
             rootTileEl.appendChild(blueBackground);
 
             this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row]);
