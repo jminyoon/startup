@@ -83,6 +83,7 @@ footer a {
     text-align:center;
     display: table-cell;
     vertical-align:middle;
+    z-index: 0;
 }
 .white {
     display: flex;
@@ -95,16 +96,21 @@ footer a {
     text-align:center;
     display: table-cell;
     vertical-align:middle;
+    z-index: 0;
 }
 .white-piece {
     display: flex;
-    flex:1;
+    flex: 1;
     width: 100%;
+    z-index: 3;
+    position: relative;
 }
 .black-piece {
     display: flex;
-    flex:1;
+    flex: 1;
     width: 100%;
+    z-index: 3;
+    position: relative;
 }
 .players {
     flex: 4;

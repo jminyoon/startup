@@ -1,10 +1,14 @@
 class Game {
     horizontalRows;
     verticalColumns;
+    movingPiece;
+    possibleMoves;
 
     constructor() {
         this.horizontalRows = ['1','2','3','4','5','6','7','8'];
         this.verticalColumns = ['A','B','C','D','E','F','G','H'];
+        this.movingPiece = false;
+        this.possibleMoves = [];
 
         this.clear();
         this.setPieces();
@@ -128,26 +132,1791 @@ class Game {
     }
 
     async reset() {
+        this.movingPiece = false;
+        this.possibleMoves.length = 0;
+
         this.clear();
         this.setPieces();
     }
 
-    movePiece(column, row) {
-        /**const rootTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row]);
-        if (!rootTileEl.hasChildNodes()) {
-            return;
-        }
-        I'll do fine tuning later
-        rootTileEl.style.background = 'lightblue';
-        if (rootTileEl.querySelector('#white-pawn') != null) {
-            if (row === 6) {
-                let movingTileEl = document.getElementById(this.verticalColumns[column] + this[row + 1]);
-                if (!movingTileEl.hasChildNodes()) {
-                    
-                }
+    movePiece(column, row) { 
+        if (!this.movingPiece) {
+            this.possibleMoves.length = 0;
+            const rootTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row]);
+            if (!rootTileEl.hasChildNodes()) {
+                return;
             }
-        }**/
-        
+
+            const blueBackground = document.createElement('div');
+            blueBackground.style.background = 'lightblue';
+            blueBackground.style.width = '100%';
+            blueBackground.style.height = '100%';
+            blueBackground.style.top = '-100%';
+            blueBackground.style.border = '5px solid black';
+            blueBackground.style.zIndex = '2';
+            blueBackground.style.position = 'relative';
+            blueBackground.className = 'blueBackground';
+
+            const redBackground = document.createElement('div');
+            redBackground.style.background = 'lightcoral';
+            redBackground.style.width = '100%';
+            redBackground.style.height = '100%';
+            redBackground.style.top = '-100%';
+            redBackground.style.border = '5px solid black';
+            redBackground.style.zIndex = '2';
+            redBackground.style.position = 'relative';
+            redBackground.className = 'redBackground';
+
+            rootTileEl.appendChild(blueBackground);
+
+            this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row]);
+
+            if (rootTileEl.querySelector('#white-pawn') != null) {
+                if (row === 1) {
+                    let movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + 1]);
+
+                        movingTileEl.appendChild(blueBackground);
+                    }
+                    movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row + 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + 2]);
+
+                        movingTileEl.appendChild(blueBackground);
+                    }
+                    if (!(column + 1 > 7)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row + 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.black-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+
+                                this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 1]);
+
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                    if (!(column - 1 < 0)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row + 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.black-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+    
+                                this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 1]);
+    
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                }
+                else {
+                    let movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row + 1]);
+                    if (row + 1 < 8 && !movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + 1]);
+
+                        movingTileEl.appendChild(blueBackground);
+                    }
+                    if (row + 1 < 8 && !(column + 1 > 7)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row + 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.black-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+
+                                this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 1]);
+
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                    if (row + 1 < 8 && !(column - 1 < 0)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row + 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.black-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+    
+                                this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 1]);
+    
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#black-pawn') != null) {
+                if (row === 6) {
+                    let movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - 1]);
+
+                        movingTileEl.appendChild(blueBackground);
+                    }
+                    movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row - 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - 2]);
+
+                        movingTileEl.appendChild(blueBackground);
+                    }
+                    if (!(column + 1 > 7)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row - 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.white-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+
+                                this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 1]);
+
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                    if (!(column - 1 < 0)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row - 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.white-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+    
+                                this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 1]);
+    
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                }
+                else {
+                    let movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row - 1]);
+                    if (row - 1 > -1 && !movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - 1]);
+
+                        movingTileEl.appendChild(blueBackground);
+                    }
+                    if (row - 1 > -1 && !(column + 1 > 7)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row - 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.white-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+
+                                this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 1]);
+
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                    if (row - 1 > -1 && !(column - 1 < 0)) {
+                        movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row - 1]);
+                        if (movingTileEl.hasChildNodes()) {
+                            if (movingTileEl.querySelector('.white-piece') != null) {
+                                const redBackground = document.createElement('div');
+                                redBackground.style.background = 'lightcoral';
+                                redBackground.style.width = '100%';
+                                redBackground.style.height = '100%';
+                                redBackground.style.top = '-100%';
+                                redBackground.style.border = '5px solid black';
+                                redBackground.style.zIndex = '2';
+                                redBackground.style.position = 'relative';
+                                redBackground.className = 'redBackground';
+    
+                                this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 1]);
+    
+                                movingTileEl.appendChild(redBackground);
+                            }
+                        }
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#white-rook') != null) {
+                for (let i = 1; i < 8; i++) {
+                    if (column + i >= 8) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + i] + this.horizontalRows[row]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (column - i <= -1) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - i] + this.horizontalRows[row]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row - i < 0) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row - i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - i]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row + i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + i]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + i]);
+
+                        break;
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#black-rook') != null) {
+                for (let i = 1; i < 8; i++) {
+                    if (column + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + i] + this.horizontalRows[row]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (column - i < 0) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - i] + this.horizontalRows[row]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row - i < 0) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row - i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - i]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row + i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + i]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + i]);
+
+                        break;
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#white-knight') != null) {
+                if (column + 2 < 8 && row + 1 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 2] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row + 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row + 1]);
+                    }
+                }
+                if (column + 2 < 8 && row - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 2] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row - 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row - 1]);
+                    }
+                }
+                if (column - 2 > -1 && row + 1 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 2] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row + 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row + 1]);
+                    }
+                }
+                if (column - 2 > -1 && row - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 2] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row - 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row - 1]);
+                    }
+                }
+                if (column + 1 < 8 && row + 2 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row + 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 2]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 2]);
+                    }
+                }
+                if (column - 1 > -1 && row + 2 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row + 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 2]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 2]);
+                    }
+                }
+                if (column + 1 < 8 && row - 2 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row - 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 2]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 2]);
+                    }
+                }
+                if (column - 1 > -1 && row - 2 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row - 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 2]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 2]);
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#black-knight') != null) {
+                if (column + 2 < 8 && row + 1 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 2] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row + 1]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row + 1]);
+                    }
+                }
+                if (column + 2 < 8 && row - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 2] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row - 1]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 2] + this.horizontalRows[row - 1]);
+                    }
+                }
+                if (column - 2 > -1 && row + 1 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 2] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row + 1]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row + 1]);
+                    }
+                }
+                if (column - 2 > -1 && row - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 2] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row - 1]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 2] + this.horizontalRows[row - 1]);
+                    }
+                }
+                if (column + 1 < 8 && row + 2 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row + 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 2]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 2]);
+                    }
+                }
+                if (column - 1 > -1 && row + 2 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row + 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 2]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 2]);
+                    }
+                }
+                if (column + 1 < 8 && row - 2 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row - 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 2]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 2]);
+                    }
+                }
+                if (column - 1 > -1 && row - 2 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row - 2]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 2]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 2]);
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#white-bishop') != null) {
+                for (let i = 1; i < 8; i++) {
+                    if (column + i > 7 || row + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + i] + this.horizontalRows[row + i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row + i]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row + i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (column - i < 0 || row + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - i] + this.horizontalRows[row + i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row + i]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row + i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row - i < 0 || column - i < 0) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - i] + this.horizontalRows[row - i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row - i]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row - i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row - i < 0 || column + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + i] + this.horizontalRows[row - i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row - i]);
+                    }
+                    else if (movingTileEl.querySelector('.white-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row - i]);
+
+                        break;
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#black-bishop') != null) {
+                for (let i = 1; i < 8; i++) {
+                    if (column + i > 7 || row + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + i] + this.horizontalRows[row + i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row + i]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row + i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (column - i < 0 || row + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - i] + this.horizontalRows[row + i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row + i]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row + i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row - i < 0 || column - i < 0) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - i] + this.horizontalRows[row - i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row - i]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - i] + this.horizontalRows[row - i]);
+
+                        break;
+                    }
+                }
+                for (let i = 1; i < 8; i++) {
+                    if (row - i < 0 || column + i > 7) {
+                        break;
+                    }
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + i] + this.horizontalRows[row - i]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row - i]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        break;
+                    }
+                    else {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + i] + this.horizontalRows[row - i]);
+
+                        break;
+                    }
+                }
+                this.movingPiece = true;
+            }
+            if (rootTileEl.querySelector('#white-king') != null) {
+                if (row + 1 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row + 1]);
+                    }
+                }
+                if (row - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column] + this.horizontalRows[row - 1]);
+                    }
+                }
+                if (column + 1 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row]);
+                    }
+                }
+                if (column - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row]);
+                    }
+                }
+                if (row + 1 < 8 && column + 1 < 8) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row + 1]);
+                    }
+                }
+                if (row + 1 < 8 && column - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row + 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row + 1]);
+                    }
+                }
+                if (row - 1 > -1 && column - 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column - 1] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column - 1] + this.horizontalRows[row - 1]);
+                    }
+                }
+                if (row - 1 > -1 && column + 1 > -1) {
+                    const movingTileEl = document.getElementById(this.verticalColumns[column + 1] + this.horizontalRows[row - 1]);
+                    if (!movingTileEl.hasChildNodes()) {
+                        const blueBackground = document.createElement('div');
+                        blueBackground.style.background = 'lightblue';
+                        blueBackground.style.width = '100%';
+                        blueBackground.style.height = '100%';
+                        blueBackground.style.border = '5px solid black';
+                        blueBackground.style.zIndex = '2';
+                        blueBackground.style.position = 'relative';
+                        blueBackground.className = 'blueBackground';
+
+                        movingTileEl.appendChild(blueBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 1]);
+                    }
+                    else if (movingTileEl.querySelector('.black-piece') != null) {
+                        const redBackground = document.createElement('div');
+                        redBackground.style.background = 'lightcoral';
+                        redBackground.style.width = '100%';
+                        redBackground.style.height = '100%';
+                        redBackground.style.top = '-100%';
+                        redBackground.style.border = '5px solid black';
+                        redBackground.style.zIndex = '2';
+                        redBackground.style.position = 'relative';
+                        redBackground.className = 'redBackground';
+
+                        movingTileEl.appendChild(redBackground);
+
+                        this.possibleMoves.push(this.verticalColumns[column + 1] + this.horizontalRows[row - 1]);
+                    }
+                }
+                this.movingPiece = true;
+            }
+        }
+        else {
+            const rootTileEl = document.getElementById(this.possibleMoves[0]);
+            const movingTileEl = document.getElementById(this.verticalColumns[column] + this.horizontalRows[row]);
+            for(const tile in this.possibleMoves) {
+                const possibleTiles = document.getElementById(this.possibleMoves[tile]);
+
+                if (this.verticalColumns[column] + this.horizontalRows[row] === this.possibleMoves[tile]) {
+                    if (this.possibleMoves[0] === this.possibleMoves[tile]) {
+                        movingTileEl.removeChild(movingTileEl.lastChild);
+                        continue;
+                    }
+                    if (movingTileEl.querySelector('.blueBackground') != null) {
+                        if (rootTileEl.querySelector('.white-piece') != null) {
+                            const piece = rootTileEl.querySelector('.white-piece');
+                            movingTileEl.removeChild(movingTileEl.firstChild);
+                            movingTileEl.appendChild(piece);
+                            continue;
+                        }
+                        else {
+                            const piece = rootTileEl.querySelector('.black-piece');
+                            movingTileEl.removeChild(movingTileEl.firstChild);
+                            movingTileEl.appendChild(piece);
+                            continue;
+                        }
+                    }
+                    else {
+                        if (rootTileEl.querySelector('.white-piece') != null) {
+                            const piece = rootTileEl.querySelector('.white-piece');
+                            movingTileEl.removeChild(movingTileEl.firstChild);
+                            movingTileEl.removeChild(movingTileEl.firstChild);
+                            movingTileEl.appendChild(piece);
+                            continue;
+                        }
+                        else {
+                            const piece = rootTileEl.querySelector('.black-piece');
+                            movingTileEl.removeChild(movingTileEl.firstChild);
+                            movingTileEl.removeChild(movingTileEl.firstChild);
+                            movingTileEl.appendChild(piece);
+                            continue;
+                        }
+                    }
+                }
+                if (tile === "0" || possibleTiles.querySelector('.redBackground') != null) {
+                    possibleTiles.removeChild(possibleTiles.lastChild);
+                    continue;
+                }
+
+                possibleTiles.removeChild(possibleTiles.firstChild);
+            }
+
+            this.movingPiece = false;
+        }
     }
 
     getPlayerName() {
