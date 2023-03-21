@@ -19,4 +19,7 @@ I had no idea that one css file was enough to style mutliple files. That is good
 Simon JavaScript Project  
 Make sure everything is the same! IT IS CASE SENSITIVE
 
+Simon Service Project  
+Make sure to edit pm2 to point to new index.js in public folder
+
 ![Screenshot 2023-01-27 192949](https://user-images.githubusercontent.com/112604068/215238737-d28caf47-ad64-45ac-aa27-4d36a183e6d2.png)
