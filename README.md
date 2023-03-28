@@ -25,4 +25,7 @@ Make sure to edit pm2 to point to new index.js in public folder
 Simon DB Project  
 Make sure to set the enviromental variables for Windows too. Setting up linux does not count for windows
 
+Simon Login Project  
+npm install express cookie-parser mongodb uuid bcrypt
+
 ![Screenshot 2023-01-27 192949](https://user-images.githubusercontent.com/112604068/215238737-d28caf47-ad64-45ac-aa27-4d36a183e6d2.png)
