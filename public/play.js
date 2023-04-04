@@ -2823,6 +2823,10 @@ class Game {
                 possibleTiles.removeChild(possibleTiles.firstChild);
             }
 
+            if (movingTileEl.querySelector('') != null) {
+                //
+            }
+
             this.movingPiece = false;
         }
     }
