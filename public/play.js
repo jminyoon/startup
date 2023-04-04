@@ -4,11 +4,24 @@ class Game {
     movingPiece;
     possibleMoves;
 
+    blackKingMove;
+    whiteKingMove;
+    whiteRook1Move;
+    whiteRook2Move;
+    blackRook1Move;
+    blackRook2Move;
+
     constructor() {
         this.horizontalRows = ['1','2','3','4','5','6','7','8'];
         this.verticalColumns = ['A','B','C','D','E','F','G','H'];
         this.movingPiece = false;
         this.possibleMoves = [];
+        blackKingMove = false;
+        whiteKingMove = false;
+        whiteRook1Move = false;
+        whiteRook2Move = false;
+        blackRook1Move = false;
+        blackRook2Move = false;
 
         this.clear();
         this.setPieces();
