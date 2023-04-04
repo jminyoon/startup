@@ -16,12 +16,12 @@ class Game {
         this.verticalColumns = ['A','B','C','D','E','F','G','H'];
         this.movingPiece = false;
         this.possibleMoves = [];
-        blackKingMove = false;
-        whiteKingMove = false;
-        whiteRook1Move = false;
-        whiteRook2Move = false;
-        blackRook1Move = false;
-        blackRook2Move = false;
+        this.blackKingMove = false;
+        this.whiteKingMove = false;
+        this.whiteRook1Move = false;
+        this.whiteRook2Move = false;
+        this.blackRook1Move = false;
+        this.blackRook2Move = false;
 
         this.clear();
         this.setPieces();
@@ -2851,10 +2851,37 @@ class Game {
 
 const game = new Game();
 
+function getPlayerName() {
+    return localStorage.getItem('username') ?? 'Mystery player';
+}
+
 function delay(milliseconds) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(true);
         }, milliseconds);
     });
+}
+
+function appendMsg(cls, from, msg) {
+    const chatText = document.querySelector('#chat-text');
+    chatText.innerHTML = `<div><span class="${cls}">${from}</span>: ${msg}</div>` + chatText.innerHTML;
+}
+
+const input = document.querySelector('#new-msg');
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    sendMessage();
+  }
+});
+
+function sendMessage() {
+    const msgEl = document.querySelector('#new-msg');
+    const msg = msgEl.value;
+    if (!!msg) {
+      appendMsg('me', 'me', msg);
+      const name = getPlayerName();
+      socket.send(`{"name":"${name}", "msg":"${msg}"}`);
+      msgEl.value = '';
+    }
 }
