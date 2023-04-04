@@ -1,0 +1,19 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "Imagine you're sitting in your room or in your office, bored with nothing to do. You want to do something that would entertain you but at the same time you don't want to feel like you're doing nothing. Then why not try something not only entertaining but mentally challenging? Something that has been known for years to not only increase intellect but also fun? Why not try a little bit of chess? With EzChess, chess would not be limited to being purly just a physical board game but a virtual, portable game as well. And don't worry, you don't need to find someone to play it with. You can play with complete random strangers over the internet. So no need to stress over trying to find someone who also enjoys playing a good old fashion game of chess. So why not give EzChess a try?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "mongodb": "^5.1.0",
+    "uuid": "^9.0.0"
+  }
+}
