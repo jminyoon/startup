@@ -2823,11 +2823,11 @@ class Game {
                 possibleTiles.removeChild(possibleTiles.firstChild);
             }
 
-            if (movingTileEl.querySelector('') != null) {
-                //
-            }
-
             this.movingPiece = false;
+
+            /*if (movingTileEl.querySelector('') != null) {
+                //
+            }*/
         }
     }
 
@@ -2885,3 +2885,22 @@ function sendMessage() {
       msgEl.value = '';
     }
 }
+
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+socket.onopen = (event) => {
+  appendMsg('system', 'websocket', 'connected');
+};
+
+socket.onmessage = async (event) => {
+    const text = await event.data.text();
+    const chat = JSON.parse(text);
+    appendMsg('friend', chat.name, chat.msg);
+};
+
+socket.onclose = (event) => {
+    appendMsg('system', 'websocket', 'disconnected');
+    document.querySelector('#name-controls').disabled = true;
+    document.querySelector('#chat-controls').disabled = true;
+};
